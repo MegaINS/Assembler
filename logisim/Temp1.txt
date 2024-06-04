@@ -1,0 +1,58 @@
+0 ru.megains.assembler.instruction.ALU@39c0f4a
+1 ru.megains.assembler.instruction.ALU@1794d431
+2 PUSH $1 = 0
+3 PUSH $2 = 0
+4 CALL FILL_ARRAY
+5 ru.megains.assembler.instruction.ALU@42e26948
+6 LW $2 = 0 + 0 -> $4 = 0
+7 PUSH $4 = 0
+8 CALL CHECK_EVEN
+9 PUSH $4 = 0
+10 JE START.EVEN
+11 CALL OP_NOT_EVEN
+12 JMP START.LABLE1
+13 CALL OP_EVEN
+14 SW $2 = 0 + 0 -> $12 = 0
+15 ru.megains.assembler.instruction.ALU@57baeedf
+16 JE END
+17 ru.megains.assembler.instruction.ALU@343f4d3d
+18 ru.megains.assembler.instruction.ALU@53b32d7
+19 JMP START.LOOP1
+20 LW $13 = 1001 + 2 -> $11 = 0
+21 LW $13 = 1001 + 4 -> $10 = 0
+22 ru.megains.assembler.instruction.ALU@5442a311
+23 SW $11 = 0 + 0 -> $12 = 0
+24 ru.megains.assembler.instruction.ALU@548e7350
+25 JE FILL_ARRAY.STOP
+26 ru.megains.assembler.instruction.ALU@1a968a59
+27 ru.megains.assembler.instruction.ALU@4667ae56
+28 JMP FILL_ARRAY.FILL_LOOP
+29 RET
+30 LW $13 = 1001 + 2 -> $10 = 0
+31 ru.megains.assembler.instruction.ALU@77cd7a0
+32 ru.megains.assembler.instruction.ALU@204f30ec
+33 RET
+34 LW $13 = 1001 + 2 -> $10 = 0
+35 ru.megains.assembler.instruction.ALU@e25b2fe
+36 PUSH $10 = 0
+37 PUSH $11 = 0
+38 CALL MULTIPLY
+39 ru.megains.assembler.instruction.ALU@754ba872
+40 RET
+41 LW $13 = 1001 + 2 -> $10 = 0
+42 PUSH $10 = 0
+43 PUSH $10 = 0
+44 CALL MULTIPLY
+45 ru.megains.assembler.instruction.ALU@146ba0ac
+46 RET
+47 LW $13 = 1001 + 2 -> $9 = 0
+48 LW $13 = 1001 + 4 -> $10 = 0
+49 ru.megains.assembler.instruction.ALU@4dfa3a9d
+50 ru.megains.assembler.instruction.ALU@6eebc39e
+51 ru.megains.assembler.instruction.ALU@464bee09
+52 JE MULTIPLY.END
+53 ru.megains.assembler.instruction.ALU@f6c48ac
+54 ru.megains.assembler.instruction.ALU@13deb50e
+55 JMP MULTIPLY.LOOP
+56 RET
+57 SHUTDOWN

@@ -13,8 +13,8 @@ object Lexer {
     var pos: Int = 0
 
 
-    val OPERATOR_CHARS = "+-:@_"
-    val OPERATOR_TOKENS: Array[TokenType.Value] = Array(TokenType.PLUS, TokenType.MINUS,TokenType.COLON,TokenType.AT, TokenType.UNDERSCORE)
+    val OPERATOR_CHARS = "+-:@_.[]"
+    val OPERATOR_TOKENS: Array[TokenType.Value] = Array(TokenType.PLUS, TokenType.MINUS,TokenType.COLON,TokenType.AT, TokenType.UNDERSCORE, TokenType.DOT,TokenType.LBRACKET,TokenType.RBRACKET)
 
     def setCodeText(input:String): Unit ={
         codeTest = input

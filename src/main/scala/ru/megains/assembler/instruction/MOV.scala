@@ -16,7 +16,13 @@ class MOV(address: Register,target:Register) extends Instruction{
 
     override def value(): Int = -1
 
-    override def execute(): Unit = {}
+    override def execute(): Unit = {
+        if(rr){
+            target.value = address.value
+        }else{
+            target.value = number.toShort
+        }
+    }
 
     override def toString: String = {
         if(rr){
@@ -25,5 +31,12 @@ class MOV(address: Register,target:Register) extends Instruction{
             s"MOV $number -> $target"
         }
 
+    }
+
+    override val OP: Int = -1
+
+    override def OPCode(): Array[Int] = {
+        val inst:Array[Int] = new Array[Int](length)
+        inst
     }
 }

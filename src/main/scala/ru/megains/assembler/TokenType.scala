@@ -12,7 +12,9 @@ object TokenType extends Enumeration {
     COLON,
     AT,
     UNDERSCORE,
-
+    DOT,
+    LBRACKET,
+    RBRACKET,
 
     ADD,
     SUB,
@@ -35,8 +37,14 @@ object TokenType extends Enumeration {
     PUSH,
     POP,
 
+    SP,
+    IP,
+
+
     EOL,
-    EOF
+    EOF,
+
+    SHUTDOWN
 
     = Value
 }
