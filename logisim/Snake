@@ -1,0 +1,147 @@
+
+SET:
+    org 0x80
+
+DATA:
+
+    head                dw  0x0
+    tail                dw  0x0
+    vec                 dw  0x1  // Y  -0xFF +0x1 X -FF00 +0100
+    snack_array_pos     dw  0x0A00 //Автодобавление массива в память
+    snack_array_length  dw  0xFF
+    video_mem           dw  0x40
+
+
+
+CODE:
+
+
+START:
+
+    PUSH 2
+    PUSH 8
+    PUSH 12
+
+    CALL CREAT_SNACK
+
+.MAIN:
+    LW snack_array_length $4
+    LW head $1 //Adr head
+    LW [snack_array_pos+$1] $2 //xy head
+
+    PUSH $2
+    CALL MOVE_SNACK
+    POP $2
+
+    INC $1
+
+    CMP $1 $4
+    JNE .N_OVER_H
+    MOV $0 $1
+.N_OVER_H:
+
+    SW $2 [snack_array_pos+$1]
+    SW $1 head
+    
+    PUSH 1
+    PUSH $1
+    CALL DRAW_LINE
+    
+    LW tail $1 //Adr tail
+    MOV $1 $2
+    INC $1
+
+    CMP $1 $4
+    JNE .N_OVER_T
+    MOV $0 $1
+.N_OVER_T:
+
+    SW $1 tail
+    PUSH 0xFFFE
+    PUSH $2
+    CALL DRAW_LINE
+
+    JMP .MAIN
+END
+
+DRAW_LINE:
+    LW [SP+1] $10
+    LW [snack_array_pos+$10] $10
+    LW [SP+2] $7
+    MOV $7 $8
+
+    MOV 0xFF $11
+    AND $11 $10 //y 11
+    AND $10 0xFF00  //x 10
+    LSR $10 8
+    LW [video_mem+$11] $12
+    CSL $7 $10
+    
+    CMP $8 1
+    JE .OR1
+    AND $12 $7
+    JMP .SAVE
+.OR1:
+    OR $12 $7
+.SAVE:
+    SW $12 [video_mem+$11]
+
+RET 2
+
+
+CREAT_SNACK:
+
+    LW [SP+3] $10   //Length
+    LW [SP+2] $3    //X
+    LW [SP+1] $4    //Y
+	MOV $0 $11
+
+    LW head $1
+
+.LOOP:
+    MOV $3 $2
+    LSL $2 8
+    XOR $2 $4
+    SW $2 [snack_array_pos+$1]
+
+    MOV 1 $5
+    LSL $5 $3
+    SW $5 [video_mem+$4]
+
+	CMP $11 $10
+	JE .STOP
+
+	DEC $4
+    INC $1
+	INC $11
+
+	JMP .LOOP
+
+.STOP:
+    SW $1 head
+RET 3
+
+
+MOVE_SNACK:
+
+    LW[SP+1] $8
+    MOV $8 $9
+    AND $8 0xFF00
+    LSR $8 8 //X
+    AND $9 0xFF //Y
+    LW vec $10
+    MOV $10 $11
+    AND $10 0xFF00
+    LSR $10 8 //vecX
+    AND $11 0xFF //vecY
+    SUB $8 $10
+    AND $8 0xF
+    SUB $9 $11
+    AND $9 0xF
+    LSL $8 8
+    OR $8 $9
+    SW $8 [SP+1]
+
+RET
+
+

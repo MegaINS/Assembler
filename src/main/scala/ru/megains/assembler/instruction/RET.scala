@@ -9,7 +9,7 @@ class RET(offset:Int) extends Instruction {
     override def execute(): Unit = {
 
         new POP(Registers.IP).execute()
-        Registers.SP.value =  (Registers.SP.value + offset/2).toShort
+        Registers.SP.value =  (Registers.SP.value + offset).toShort
     }
 
     override def toString = s"RET"
@@ -18,7 +18,7 @@ class RET(offset:Int) extends Instruction {
 
     override def OPCode(): Array[Int] = {
         val inst:Array[Int] = new Array[Int](length)
-        inst(0) = (((offset/2)+1) << 12 | 0xD <<  8 | 0xE << 4 | (OP  + (length- 1)))
+        inst(0) = (offset+1) << 12 | 0xD <<  8 | 0xE << 4 | (OP  + (length- 1))
         inst
     }
 }

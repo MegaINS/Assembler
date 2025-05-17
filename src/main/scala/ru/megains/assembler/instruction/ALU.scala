@@ -10,13 +10,13 @@ class ALU(a: Register, b: Register, c: Register, const: Int, aluOP: ALUOP) exten
     length = 2
     var i = 0
 
-    def isI = i == 2
+    def isI: Boolean = i == 2
 
-    def this(a: Register, b: Register, c: Register, ALUOP: ALUOP) {
+    def this(a: Register, b: Register, c: Register, ALUOP: ALUOP) ={
         this(a: Register, b: Register, c: Register, 0, ALUOP: ALUOP)
     }
 
-    def this(a: Register, const: Int, c: Register, ALUOP: ALUOP) {
+    def this(a: Register, const: Int, c: Register, ALUOP: ALUOP) ={
         this(a: Register, Registers.$0, c: Register, const, ALUOP: ALUOP)
         i = 2
     }
@@ -59,11 +59,26 @@ class ALU(a: Register, b: Register, c: Register, const: Int, aluOP: ALUOP) exten
                 } else {
                     c.value = (a.value & b.value).toShort
                 }
-            case ALUOP.OR => ???
-            case ALUOP.XOR => ???
+            case ALUOP.OR =>
+                if (isI) {
+                    (a.value | const).toShort
+                } else {
+                    (a.value | b.value).toShort
+                }
+            case ALUOP.XOR =>
+                if (isI) {
+                    (a.value ^ const).toShort
+                } else {
+                    (a.value ^ b.value).toShort
+                }
             case ALUOP.NOT => ???
-            case ALUOP.>> => ???
-            case ALUOP.<< => ???
+            case ALUOP.LSR => ???
+            case ALUOP.LSL =>
+                if (isI) {
+                    (a.value << const).toShort
+                } else {
+                    (a.value << b.value).toShort
+                }
             case ALUOP.>>> => ???
         }
 

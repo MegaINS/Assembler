@@ -2,15 +2,14 @@ package ru.megains.assembler.instruction
 
 import ru.megains.assembler.{Memory, Register, Registers}
 
-class SW (target: Register , offset:Int ,address:Register) extends Instruction{
+class SW (target: Register ,var offset:Int ,address:Register) extends Instruction{
 
-
-    def this(offset:Int,target:Register){
+    length = if (offset > 0) 2 else 1
+    def this(offset:Int,target:Register)={
         this(Registers.$0, offset:Int,target:Register)
-        length = 2
     }
 
-    def this(address: Register,target:Register){
+    def this(address: Register,target:Register)={
         this(address, 0,target:Register)
     }
 
@@ -27,7 +26,7 @@ class SW (target: Register , offset:Int ,address:Register) extends Instruction{
     override def OPCode(): Array[Int] = {
         val inst:Array[Int] = new Array[Int](length)
         inst(0) = (target.id << 8 | address.id << 4 | (OP  + (length- 1)))
-        if(length == 2) inst(1) = offset/2
+        if(length == 2) inst(1) = offset
         inst
     }
 }

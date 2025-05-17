@@ -33,8 +33,8 @@ START:
 
 FILL_ARRAY:
 
-    LW [SP+2] $11
-    LW [SP+4] $10
+    LW [SP+1] $11
+    LW [SP+2] $10
 	
 	MOV 0 $12
 
@@ -50,14 +50,14 @@ FILL_ARRAY:
 	
 CHECK_EVEN:
 
-    LW [SP+2] $10
+    LW [SP+1] $10
 	AND $10 1
 	CMP $10 0
 	RET 2
 
 OP_EVEN:
 
-	LW [SP+2] $10
+	LW [SP+1] $10
 	MOV 3 $11
 	PUSH $10
 	PUSH $11
@@ -70,7 +70,7 @@ OP_EVEN:
 	
 OP_NOT_EVEN:
 
-    LW [SP+2] $10
+    LW [SP+1] $10
 
 	PUSH $10
 	PUSH $10
@@ -82,8 +82,8 @@ OP_NOT_EVEN:
 
 MULTIPLY:
 
-    LW [SP+2] $9
-    LW [SP+4] $10
+    LW [SP+1] $9
+    LW [SP+2] $10
 	MOV 0 $11
 	MOV 0 $12
 .LOOP:

@@ -36,6 +36,14 @@ class JMP(name:Token,val label:String) extends Instruction {
             case TokenType.JMP => 0x0
             case TokenType.JE => 0x1
             case TokenType.JNE => 0x2
+
+            case TokenType.JB => 0x3
+            case TokenType.JBE => 0x4
+
+            case TokenType.JG => 0x5
+            case TokenType.JGE => 0x6
+
+
         }
 
 

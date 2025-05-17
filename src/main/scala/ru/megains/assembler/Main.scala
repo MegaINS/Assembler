@@ -1,28 +1,24 @@
 package ru.megains.assembler
 
-import ru.megains.assembler.TokenType.{REGISTER, TokenType}
-import ru.megains.assembler.instruction.{CALL, Instruction, JMP, Label}
+import ru.megains.assembler.Parser.line
+import ru.megains.assembler.TokenType.TokenType
+import ru.megains.assembler.instruction.Instruction
 
 import java.io.{BufferedReader, File, FileReader}
-import java.util
 import java.util.stream.Collectors
-import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
+
+
+
 
 
 object Main extends App {
 
-    //
-    //   val assCode = """lw $1 200
-    //      |lw $2 201
-    //      |add $3 $1 $2
-    //      |sw $3 202
-    //      |""".stripMargin
-    //
-    //
 
 
-    val file: File = new File("Z:\\Assembler\\logisim\\CODE.txt")
+
+
+    val file: File = new File("Z:\\Assembler\\logisim\\Snake")
     val fileRead: FileReader = new FileReader(file)
     val buff: BufferedReader = new BufferedReader(fileRead)
 
@@ -54,7 +50,7 @@ object Main extends App {
             case TokenType.EOF =>
 
             case _ =>
-                print(token.tokenType)
+                print(token)
                 print(" ")
 
         }
@@ -90,19 +86,19 @@ object Main extends App {
     println()
     println("---Executor---")
 
-    Executor.execute(instructions1)
+   // Executor.execute(instructions1)
 
 
-    Registers.registerName.values.foreach(println(_))
+   // Registers.registerName.values.foreach(println(_))
 
-    Memory.printMemory(200)
+    //Memory.printMemory(200)
 
     println()
     println("---OP CODE---")
-    a = 0
-    var b = 0
+    a = Parser.set.org
+    var b = Parser.set.org
     instructions1.foreach(i => {
-        print(a + " "+ b)
+        print(a + " "+ b.toHexString)
         i.OPCode().foreach(j => {
             print(" " + j.toHexString)
             b +=1
@@ -112,6 +108,13 @@ object Main extends App {
     })
     println("ALL instructions "+ b)
     a = 0
+    val baseCodeArray = new Array[Int](Parser.set.org)
+    baseCodeArray.foreach(j => {
+        print(j.toHexString +" " )
+        a+=1
+        if (a % 8 == 0)  println()
+    })
+
     instructions1.foreach(i => {
 
         i.OPCode().foreach(j => {
